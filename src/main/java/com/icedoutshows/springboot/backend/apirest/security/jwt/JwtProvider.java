@@ -29,19 +29,23 @@ public class JwtProvider {
 	@Value("${jwt.expiration}")
 	private int expiration;
 	
+	//Genera un token en función del usuario autenticado
 	public String generateToken(Authentication authentication) {
 		UsuarioPrincipal usuarioPrincipal = (UsuarioPrincipal) authentication.getPrincipal();
 		return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
 				.setIssuedAt(new Date())
-				.setExpiration(new Date(new Date().getTime() + expiration * 1000))
+				.setExpiration(new Date(new Date().getTime() + expiration * 1000)) //Fecha de expiracion del token
 				.signWith(SignatureAlgorithm.HS512, secret)
-				.compact();
+				.compact(); //Compacta la info en una cadena JWT
 	}
 	
+	//Extrae el nombre de usuario del token
 	public String getNombreUsuarioFromToken(String token) {
 		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
 	}
 	
+	
+	//Validación del token
 	public boolean validateToken(String token) {
 		try {
 			Jwts.parser().setSigningKey(secret).parseClaimsJws(token);

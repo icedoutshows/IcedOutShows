@@ -25,14 +25,20 @@ public class Evento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	
+	private Long evento_id;
 	private String descripcion;
 	private String imagen;
 	private String titulo;
 	private boolean recomendado;
+	private String lugar;
+	private String artista;
+	private double precio;
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 	
 	@JsonIgnoreProperties({"evento"})
-	@OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE)
 	private List<Entrada> entradas;
 	
 	
@@ -61,12 +67,18 @@ public class Evento implements Serializable {
 		
 	
 	}
-	public Long getId() {
-		return id;
+
+	
+	public Long getEvento_id() {
+		return evento_id;
 	}
-	public void setEvento_Id(Long id) {
-		this.id = id;
+
+
+	public void setEvento_id(Long evento_id) {
+		this.evento_id = evento_id;
 	}
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -83,6 +95,46 @@ public class Evento implements Serializable {
 	}
 	
 	
+
+
+	public String getLugar() {
+		return lugar;
+	}
+
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
+
+	public String getArtista() {
+		return artista;
+	}
+
+
+	public void setArtista(String artista) {
+		this.artista = artista;
+	}
+
+
+	public double getPrecio() {
+		return precio;
+	}
+
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
 
 	public String getTitulo() {

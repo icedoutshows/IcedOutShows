@@ -28,17 +28,10 @@ public class Entrada implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 
 	private Long entradaId;
-	private String lugar;
 	private String recinto;
-	private String artista;
-	private double precio;
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
-
-	
 	 @JsonIgnoreProperties({"entradas"})
 	 @ManyToOne
-	 @JoinColumn(name = "id", nullable=false)
+	 @JoinColumn(name = "evento_id", nullable=false)
 	 private Evento evento;
 	
 	
@@ -51,14 +44,11 @@ public class Entrada implements Serializable {
 		 
 	 }
 
-	public Entrada( String lugar,String recinto, Date fecha,String artista,double precio, Evento evento) {
+	public Entrada( String recinto, Evento evento) {
 		super();
 		
-		this.lugar = lugar;
-		this.fecha = fecha;
 		this.evento=evento;
-		this.artista=artista;
-		this.precio=precio;
+	
 	
 	}
 	
@@ -70,22 +60,6 @@ public class Entrada implements Serializable {
 
 	public void setEntradaId(Long id) {
 		this.entradaId = entradaId;
-	}
-
-	public String getLugar() {
-		return lugar;
-	}
-
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
-	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
 	}
 
 
@@ -108,21 +82,6 @@ public class Entrada implements Serializable {
 		this.recinto = recinto;
 	}
 
-	public String getArtista() {
-		return artista;
-	}
-
-	public void setArtista(String artista) {
-		this.artista = artista;
-	}
-
-	public double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
 
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
@@ -131,6 +90,13 @@ public class Entrada implements Serializable {
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+	
+	
+
+
+
+
+
 
 
 

@@ -2,6 +2,8 @@ package com.icedoutshows.springboot.backend.apirest.controllers;
 
 import org.springframework.stereotype.Service;
 
+import com.icedoutshows.springboot.backend.apirest.models.entity.Entrada;
+
 @Service
 public class Authenticate {
 	
@@ -18,4 +20,9 @@ public class Authenticate {
 	public void sendMessageUser(String email) {
 		mailManager.sendMessage(email);
 	}
+	
+	public void sendEntradas(Entrada entrada,String emailUser) {
+	//	mailManager.sendEntradas(entrada,emailUser);
+	}
+
 }

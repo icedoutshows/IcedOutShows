@@ -31,15 +31,7 @@ public class EventoServiceImpl implements IEventoService {
 	@Autowired
 	private IEntradaDao entradaDao;
 	
-	@Autowired
-	private UsuarioService usuarioService;
-	
-	@Autowired
-	AuthenticationManager authenticationManager;
-	
-	
-	@Autowired
-	JwtProvider jwtProvider;
+
 	
 	
 	@Override

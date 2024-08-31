@@ -27,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter{
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
 	
-	
+	//Lógica de filtrado para cada petición Http
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -39,12 +39,12 @@ public class JwtTokenFilter extends OncePerRequestFilter{
 				UserDetails userDetails= userDetailsServiceImpl.loadUserByUsername(nombreUsuario);
 				UsernamePasswordAuthenticationToken auth=
 						new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
-				SecurityContextHolder.getContext().setAuthentication(auth);
+				SecurityContextHolder.getContext().setAuthentication(auth); //Establece la autenticación en el contexto de seguridad de Spring
 			}
 		}catch(Exception e) {
 			logger.error("fail en el metodo doFilter");
 		}
-		filterChain.doFilter(request, response);
+		filterChain.doFilter(request, response); //Permite que la solicitud continúe por la cadena de filtros de Spring
 		
 	}
 	

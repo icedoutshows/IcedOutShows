@@ -21,7 +21,7 @@ public class Role implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int rol_id;
 	
 	@Enumerated(EnumType.STRING)
 	private RolNombre rolNombre;
@@ -35,12 +35,12 @@ public class Role implements Serializable {
 		this.rolNombre = rolNombre;
 	}
 
-	public int getId() {
-		return id;
+	public int getRol_Id() {
+		return rol_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int rol_id) {
+		this.rol_id = rol_id;
 	}
 
 	public RolNombre getRolNombre() {

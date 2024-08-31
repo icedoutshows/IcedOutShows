@@ -17,10 +17,11 @@ public class JwtEntryPoint implements AuthenticationEntryPoint {
 	
 	private final static Logger logger=LoggerFactory.getLogger(JwtEntryPoint.class);
 	
+	
+	//Maneja las solicitudes no autorizadas
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		logger.error("error en el metodo commence");
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"no autorizado");
 	}

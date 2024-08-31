@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public class UsuarioPrincipal implements UserDetails{
 
+	//Esta clase se usa para manejar los detalles de un usuario, implementando UserDetails
+	
+	
 	private String nombre;
 	private String nombreUsuario;
 	private String email;

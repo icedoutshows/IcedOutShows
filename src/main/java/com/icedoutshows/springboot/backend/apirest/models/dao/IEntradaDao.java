@@ -19,9 +19,11 @@ public interface IEntradaDao extends CrudRepository<Entrada,Long>  {
 	
 	 Optional<Entrada> findById(Long id);
 
+	 /*
 	public List<Entrada> findByLugarContaining(String lugar);
 	
 	public List<Entrada> findByArtistaContaining(String artista);
 	
 	public List<Entrada> findByRecintoContaining(String recinto);
+	*/
 }

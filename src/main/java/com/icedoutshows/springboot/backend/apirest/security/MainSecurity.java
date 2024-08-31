@@ -45,11 +45,12 @@ public class MainSecurity {
 		builder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder);
 		authenticationManager=builder.build();
 		httpSecurity.authenticationManager(authenticationManager);
-		httpSecurity.csrf().disable();
-		httpSecurity.cors();
+		httpSecurity.csrf().disable(); //Deshabilita csrf para permitir solicitudes desde clientes que no son del mismo origen
+		httpSecurity.cors(); //Permite solicitudes desde origenes distintos al de la aplicación
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.authorizeHttpRequests().requestMatchers("/auth/**").permitAll()
-		.anyRequest().authenticated();
+		.requestMatchers("/api/**").permitAll()
+		.anyRequest().authenticated(); //Permite el acceso sin autenticación a las rutas especificadas
 		httpSecurity.exceptionHandling().authenticationEntryPoint(jwtEntryPoint);
 		httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 		return httpSecurity.build();

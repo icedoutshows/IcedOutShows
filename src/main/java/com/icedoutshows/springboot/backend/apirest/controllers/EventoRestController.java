@@ -76,84 +76,92 @@ public class EventoRestController {
 	}	
 	
 	
+	
 	@PutMapping("/eventos/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Evento update(@RequestBody Evento evento, @PathVariable Long id) {
-		Evento currentEvento = this.eventoService.findById(id);
-		currentEvento.setDescripcion(evento.getDescripcion());
-		currentEvento.setImagen(evento.getImagen());
-		currentEvento.setTitulo(evento.getTitulo());
-		currentEvento.setRecomendado(evento.isRecomendado());
-		this.eventoService.save(currentEvento);
-		return currentEvento;
+	public Evento update(@RequestBody Evento evento,@PathVariable Long id) {
+		Evento eventoActual=this.eventoService.findById(id);
+		eventoActual.setDescripcion(evento.getDescripcion());
+		eventoActual.setImagen(evento.getImagen());
+		eventoActual.setTitulo(evento.getTitulo());
+		eventoActual.setRecomendado(evento.isRecomendado());
+		this.eventoService.save(eventoActual);
+		return eventoActual;
 	}
 	
-	
-
-
+		
+	 
 	 @PostMapping("/eventos/{id}")
-		@ResponseStatus(HttpStatus.OK)
-	    public Evento agregarEntradasEvento(@RequestBody List<Entrada> entradas,@PathVariable Long id) {
-	        Evento evento = eventoService.findById(id);
-	        eventoService.agregarEntradasAEvento(evento, entradas);
-	        return evento;
-	    }	
+	 @ResponseStatus(HttpStatus.OK)
+	 public Evento agregarEntradasEvento(@RequestBody List<Entrada> entradas,@PathVariable Long id) {
+		 Evento evento=this.eventoService.findById(id);
+		 eventoService.agregarEntradasAEvento(evento, entradas);
+		 return evento;
+		 
+	 }
 	 
 	 
+		
 		@GetMapping("/eventos/entradas/{id}")
 		public List <Entrada> findAllEntradas(@PathVariable Long id){
 			return eventoService.findAllEntradas(id);
 		}
 		
-		
-	
-		
+		 
+		 /*
 		 @GetMapping("/eventos/buscarPorArtista")
 		 @ResponseStatus(HttpStatus.OK)
-		    public List<Entrada> buscarPorArtista(@RequestParam String artista) {
-			List<Entrada> entradas = entradaDao.findByArtistaContaining(artista);
-			return entradas;
-		      
-		    }
+		 public List<Entrada> buscarPorArtista(@RequestParam String artista){
+			 List<Entrada> entradas=entradaDao.findByArtistaContaining(artista);
+			 return entradas;
+		 }
+		 
+		 
+		 
+		 
+		 
+		 @GetMapping("/eventos/buscarPorLugar")
+		 @ResponseStatus(HttpStatus.OK)
+		 public List<Entrada> buscarPorLugar(@RequestParam String lugar){
+			 List<Entrada> entradas=entradaDao.findByLugarContaining( lugar);
+			 return entradas;
+		 }
+		 
 		 
 		 
 
-		 @GetMapping("/eventos/buscarPorLugar")
-		 @ResponseStatus(HttpStatus.OK)
-		    public List<Entrada>  buscarPorLugar(@RequestParam String lugar) {
-			   List<Entrada> entradas= entradaDao.findByLugarContaining(lugar);
-		      return entradas;
-		    }
 		 
 		 @GetMapping("/eventos/buscarPorRecinto")
 		 @ResponseStatus(HttpStatus.OK)
-		    public List<Entrada> buscarPorRecinto(@RequestParam String recinto) {
-			   List<Entrada> entradas= entradaDao.findByRecintoContaining(recinto);
-		      return entradas;
-		    }
+		 public List<Entrada> buscarPorRecinto(@RequestParam String recinto){
+			 List<Entrada> entradas=entradaDao.findByRecintoContaining(recinto);
+			 return entradas;
+		 }
 		 
+		 */
+		 
+
 		 
 		 @GetMapping("/eventos/entrada")
-		    public Entrada findEntradaById(@RequestParam Long idEvento,@RequestParam Long idEntrada) {
-			 List<Entrada>entradas= eventoService.findAllEntradas(idEvento);
-			  for(Entrada entrada:entradas) {
-				  if(entrada.getEntradaId()==idEntrada)
-				 return entrada;
-			  }
-			  return null;
-		      
-		    }
+		 public Entrada findEntradaById(@RequestParam Long idEvento,@RequestParam Long idEntrada) {
+			 List<Entrada>entradas=eventoService.findAllEntradas(idEvento);
+			 for(Entrada entrada:entradas) {
+				 if(entrada.getEntradaId()==idEntrada) 
+					 return entrada;
+			 }
+			 return null;
+		 }
+		 
+		 
+		
 		 
 		 @GetMapping("/eventos/entradaCompleta/{id}")
-		    public Entrada findEntrada(@PathVariable("id") Long id) {
-					return entradaDao.findById(id).orElse(null);
-					
-				}
+		 public Entrada findEntrada(@PathVariable("id") Long id) {
+			 return entradaDao.findById(id).orElse(null);
+		 }
 			
 		 
-		 
-		 
-		 
+			
 			@DeleteMapping("/eventos/entrada/{id}")
 			@ResponseStatus(HttpStatus.NO_CONTENT)
 			public void deleteEntrada(@PathVariable("id") Long id) {
@@ -161,19 +169,24 @@ public class EventoRestController {
 			}
 
 			
-
+			/*
 			@PutMapping("/eventos/entrada/{id}")
 			@ResponseStatus(HttpStatus.CREATED)
+			
 			public Entrada updateEntrada(@RequestBody Entrada entrada, @PathVariable Long id) {
+				
 				Entrada currentEntrada = entradaDao.findById(id).orElse(entrada);
-				currentEntrada.setArtista(entrada.getArtista());
+				currentEntrada.setArtista(entrada.getEvento().getArtista());
 				currentEntrada.setRecinto(entrada.getRecinto());
-				currentEntrada.setFecha(entrada.getFecha());
-				currentEntrada.setPrecio(entrada.getPrecio());
-				currentEntrada.setLugar(entrada.getLugar());
+				currentEntrada.setFecha(entrada.getEvento().getFecha());
+				currentEntrada.setPrecio(entrada.getEvento().getPrecio());
+				currentEntrada.setLugar(entrada.getEvento().getLugar());
 				entradaDao.save(currentEntrada);
 				return currentEntrada;
+				
 			}
+			*/
+			
 		 
 		 
 		 @Autowired
@@ -188,25 +201,33 @@ public class EventoRestController {
 			}
 			
 			
+			@PostMapping("/eventos/authenticateEntradas")
+			public void authenticateEntradas(@RequestParam Long idEntrada,@RequestParam String nombreUsuario) {
+				Entrada entrada=entradaDao.findById(idEntrada).orElse(null);
+				Usuario usuario=usuarioService.getByNombreUsuario(nombreUsuario).orElse(null);
+				authenticate.sendEntradas(entrada, usuario.getEmail());
+			}
+			
+			
+			
 			@GetMapping("/eventos/entradas")
-			 public List<Entrada> obtenerEntradasPorNombreUsuario(String nombreUsuario) {
-			        return entradaDao.findEntradasByNombreUsuario(nombreUsuario);
-			    }
+			public List<Entrada> obtenerEntradasPorNombreUsuario(String nombreUsuario){
+				return entradaDao.findEntradasByNombreUsuario(nombreUsuario);
+			}
 			
 			
+			 
 			 @PostMapping("/eventos/entradasComprar")
 			 @ResponseStatus(HttpStatus.CREATED)
-			 public void asignarEntradaAUsuario(@RequestParam String nombreUsuario,@RequestParam Long idEntrada) {
-			        Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).orElse(null);
-			        Entrada entrada = entradaDao.findById(idEntrada).orElse(null);
-			        if (usuario != null && entrada != null) {
-			            usuario.getEntradas().add(entrada);
-			            entrada.getUsuarios().add(usuario);
-			            usuarioService.save(usuario);
-			            entradaDao.save(entrada);
-			        } else {
-			     
-			        }
-			    }
+			 public void asignarEntradaAUsuario(@RequestParam String nombreUsuario,@RequestParam Long idEntrada, @RequestParam int numEntradas) {
+				 Usuario usuario=usuarioService.getByNombreUsuario(nombreUsuario).orElse(null);
+				 Entrada entrada=entradaDao.findById(idEntrada).orElse(null);
+				 if(usuario!=null && entrada!=null) {	
+				usuario.getEntradas().add(entrada);
+				entrada.getUsuarios().add(usuario);	
+					 usuarioService.save(usuario);
+					 entradaDao.save(entrada);
+				 }
+			 }
 	
 }

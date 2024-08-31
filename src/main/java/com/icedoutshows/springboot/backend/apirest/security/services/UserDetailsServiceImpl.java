@@ -19,7 +19,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		Usuario usuario= usuarioService.getByNombreUsuario(nombreUsuario).get();
-		return UsuarioPrincipal.build(usuario);
+		return UsuarioPrincipal.build(usuario); 
+		//Construye un objeto de tipo UserDetails, que contiene los detalles de un usuario en el contexto de Spring Security
 	}
 
 }
